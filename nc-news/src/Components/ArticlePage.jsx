@@ -24,9 +24,9 @@ function ArticlePage() {
     }, [article_id])
     
     if (loading) return <p>Loading article</p>
-    if (!article) return null
     
-const { title, topic, body, author, votes, article_img_url, comment_count} = article
+    const { title, topic, body, author, votes, article_img_url, comment_count } = article
+    console.log(comment_count)
 
     return (
         <main className="article-page">

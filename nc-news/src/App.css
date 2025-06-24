@@ -1,12 +1,29 @@
-.homepage-main{
-  max-width: 800px;
-  margin: 2rem;
-  padding: 1rem, 2rem;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+body, html{
+  background-color: #C3D2D5;
+  color: #824670;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin:0;
+  padding:0
+}
+
+
+
+
+.main, .homepage-main, .article-page {
+  background-color: #C1F7DC;
+  padding: 1.5rem;
+  max-width: 900px;
+  margin: 2rem auto;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(130, 70, 112, 0.2);
 
 }
+
+h1,h2{
+   color: #824670; 
+  margin-bottom: 0.75rem;
+}
+
 
 .homepage-main  h1{
   font-size: 2rem;
@@ -22,12 +39,12 @@
 }
 
 .article-card{
-  background-color: white;
-  border-radius: 8px;
+  background-color: #BDA0BC;
+  border-radius: 10px;
   padding: 1rem 1.5rem;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   transition: box-shadow 0.3s ease;
-  border: 2px solid #333;
+  border: 2px solid #A2708A;
   margin-bottom: 20px;
   max-width: 600px;
   cursor: pointer;
@@ -36,19 +53,38 @@
 }
 
 .article-card:hover{
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 12px #A2708A;
 }
 
-.article-img{
-  height: auto;
-  width:75%;
-  max-height: 200px;
-  object-fit:cover;
-  border: radius 8px;
-  margin: top 8px;
-  display:block;
+.article-img {
+  max-width: 100%;
+  border-radius: 8px;
+  border: 1.5px solid #A2708A;
+  margin-top: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.article-title{
+  color: #824670;
+  margin-bottom: 0.5rem;
 }
 
 .article-author-topic{
   font-size: 0.9rem;
+}
+
+.article-author-topic, .under-card-info, .article-info, .article-votes {
+  color: #824670;
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+
+a {
+  color: #824670;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #A2708A;
 }
