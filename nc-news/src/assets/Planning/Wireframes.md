@@ -2,3 +2,4 @@
 ![alt text](<Article Plan.png>)
 ![alt text](<User Plan.png>)
 ![alt text](<Comments Plan.png>)
+![alt text](<Component Tree.png>)

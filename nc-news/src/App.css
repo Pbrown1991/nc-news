@@ -1,42 +1,54 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+.homepage-main{
+  max-width: 800px;
+  margin: 2rem;
+  padding: 1rem, 2rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+.homepage-main  h1{
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #222;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.article-list{
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.article-card{
+  background-color: white;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease;
+  border: 2px solid #333;
+  margin-bottom: 20px;
+  max-width: 600px;
+  cursor: pointer;
+
+  
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.article-card:hover{
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
-.card {
-  padding: 2em;
+.article-img{
+  height: auto;
+  width:75%;
+  max-height: 200px;
+  object-fit:cover;
+  border: radius 8px;
+  margin: top 8px;
+  display:block;
 }
 
-.read-the-docs {
-  color: #888;
+.article-author-topic{
+  font-size: 0.9rem;
 }
