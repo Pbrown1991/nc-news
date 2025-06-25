@@ -139,3 +139,25 @@ a:hover {
 .comment-toggle:hover{
   background-color: #824670;
 }
+
+.article-votes{
+  margin: top 1rem;
+  display: flex;
+  gap:1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.article-votes button{
+  padding:0.5rem 1rem;
+  background-color: #A2708A;
+  color: white;
+  border: none;
+  border: radius 5px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.article-votes button:hover{
+   background-color: #824670;
+}

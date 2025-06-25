@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { fetchArticleById } from "../api/articlesbyid";
 import { fetchCommentsByArticleId } from "../api/commentsbyarticleid";
 import Comments from "./Comments";
+import { patchArticleVotes } from "../api/patchArticleVote";
 
 function ArticlePage() {
   const { article_id } = useParams();
@@ -45,6 +46,23 @@ function ArticlePage() {
         });
     }
   }
+    
+    function handleVotingClick(diff) {
+        setArticle((currArticle) => ({
+            ...currArticle,
+            votes:currArticle.votes+diff
+        }))
+        patchArticleVotes(article.article_id, diff)
+            .then((newArticle) => {
+            setArticle(newArticle.article)
+            })
+            .catch((err) => {
+                console.error('Vote change failed', err);
+                setArticle((currArticle)=>({
+                    ...currArticle, votes: currArticle.votes-diff
+                }))
+        })
+    }
 
   if (loading) return <p>Loading article</p>;
 
@@ -61,8 +79,12 @@ function ArticlePage() {
       <img src={article_img_url} alt="No image found" className="article-img" />
       <section className="article-body">{body}</section>
       <div className="article-votes">
-        Votes: {votes} || Comments: {comment_count}
-      </div>
+              <button onClick={() =>handleVotingClick(1)}>Upvote</button>
+              <button onClick={() => handleVotingClick(-1)}>Downvote</button>
+              <p>{votes}</p>
+          </div>
+          <div className="article-comment-count">Comments: {comment_count}</div>
+      
       <button className="comment-toggle" onClick={toggleCommments}>
         {showComments ? "Hide Comments" : "View Comments"}
       </button>
