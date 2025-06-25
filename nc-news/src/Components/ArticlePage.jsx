@@ -9,10 +9,6 @@ function ArticlePage() {
   const { article_id } = useParams();
   const [article, setArticle] = useState(null);
   const [showComments, setShowComments] = useState(null);
-  const [comments, setComments] = useState([]);
-  const [commentsLoading, setCommentsLoading] = useState(false);
-  const [commentsError, setCommentsError] = useState(null);
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -32,20 +28,7 @@ function ArticlePage() {
 
   function toggleCommments() {
     setShowComments((prev) => !prev);
-
-    if (!showComments && comments.length === 0) {
-      setCommentsLoading(true);
-      fetchCommentsByArticleId(article_id)
-        .then((data) => {
-          setComments(data.comments);
-          setCommentsLoading(false);
-        })
-        .catch((err) => {
-          setCommentsError("Failed to load comments");
-          setCommentsLoading(false);
-        });
-    }
-  }
+}
     
     function handleVotingClick(diff) {
         setArticle((currArticle) => ({
@@ -88,7 +71,7 @@ function ArticlePage() {
       <button className="comment-toggle" onClick={toggleCommments}>
         {showComments ? "Hide Comments" : "View Comments"}
       </button>
-      {showComments && <Comments comments={comments} />}
+      {showComments && <Comments article_id={article_id} />}
     </main>
   );
 }
