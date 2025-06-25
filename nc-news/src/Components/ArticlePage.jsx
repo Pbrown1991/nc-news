@@ -1,43 +1,74 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchArticleById } from "../api/articlesbyid";
+import { fetchCommentsByArticleId } from "../api/commentsbyarticleid";
+import Comments from "./Comments";
 
 function ArticlePage() {
-    const { article_id } = useParams()
-    const [article, setArticle] = useState(null)
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(null)
+  const { article_id } = useParams();
+  const [article, setArticle] = useState(null);
+  const [showComments, setShowComments] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [commentsLoading, setCommentsLoading] = useState(false);
+  const [commentsError, setCommentsError] = useState(null);
 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
-        setError(null)
-        fetchArticleById(article_id)
-            .then((data) => {
-                setArticle(data.article);
-                setLoading(false)
-            })
-            .catch((err) => {
-                console.error(err);
-                setError('Article not found');
-                setLoading(false);
+  useEffect(() => {
+    setError(null);
+    fetchArticleById(article_id)
+      .then((data) => {
+        setArticle(data.article);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setError("Article not found");
+        setLoading(false);
+      });
+  }, [article_id]);
+
+  function toggleCommments() {
+    setShowComments((prev) => !prev);
+
+    if (!showComments && comments.length === 0) {
+      setCommentsLoading(true);
+      fetchCommentsByArticleId(article_id)
+        .then((data) => {
+          setComments(data.comments);
+          setCommentsLoading(false);
         })
-    }, [article_id])
-    
-    if (loading) return <p>Loading article</p>
-    
-    const { title, topic, body, author, votes, article_img_url, comment_count } = article
-    console.log(comment_count)
+        .catch((err) => {
+          setCommentsError("Failed to load comments");
+          setCommentsLoading(false);
+        });
+    }
+  }
 
-    return (
-        <main className="article-page">
-            <h1 className="article-title">{title}</h1>
-            <p className="article-info">Author:{author} || Topic:{topic} || Created At: {new Date(article.created_at).toLocaleDateString()} </p>
-            <img src={article_img_url} alt="No image found" className="article-img" />
-            <section className="article-body">{body}</section>
-            <div className="article-votes">Votes: {votes} || Comments: {comment_count}</div>
-        </main>
-    )
+  if (loading) return <p>Loading article</p>;
 
+  const { title, topic, body, author, votes, article_img_url, comment_count } =
+    article;
+
+  return (
+    <main className="article-page">
+      <h1 className="article-title">{title}</h1>
+      <p className="article-info">
+        Author:{author} || Topic:{topic} || Created At:{" "}
+        {new Date(article.created_at).toLocaleDateString()}{" "}
+      </p>
+      <img src={article_img_url} alt="No image found" className="article-img" />
+      <section className="article-body">{body}</section>
+      <div className="article-votes">
+        Votes: {votes} || Comments: {comment_count}
+      </div>
+      <button className="comment-toggle" onClick={toggleCommments}>
+        {showComments ? "Hide Comments" : "View Comments"}
+      </button>
+      {showComments && <Comments comments={comments} />}
+    </main>
+  );
 }
 
-export default ArticlePage
+export default ArticlePage;
