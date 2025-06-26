@@ -11,6 +11,7 @@ function ArticlePage() {
   const [showComments, setShowComments] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  console.log('article_id:', article_id)
 
   useEffect(() => {
     setError(null);

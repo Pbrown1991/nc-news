@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { fetchCommentsByArticleId } from "../api/commentsbyarticleid"
 import CommentForm from "./CommentForm"
+import { deleteComment } from "../api/deleteComment"
 
 
 
@@ -24,8 +25,20 @@ function Comments({ article_id }) {
     }, [article_id])
     
     function handleNewComment(newComment) {
-        setComments((curr) => [newComment, ...curr]);
+      setComments((curr) => [newComment, ...curr]);
     }
+  
+  function handleDelete(comment_id) {
+  deleteComment(comment_id)
+    .then(() => {
+      setComments((curr) =>
+       curr.filter((comment) => comment.comment_id !== comment_id)
+      );
+    })
+    .catch(() => {
+      alert('Failed to delete comment');
+    });
+}
 
     if (loading) return <p>Loading comments</p>
     if (error) return <p>{error}</p>
@@ -53,6 +66,7 @@ function Comments({ article_id }) {
           <p className="comment-created-at">
             Created At: {comment.created_at ? new Date(comment.created_at).toLocaleDateString() : 'Unknown'}
           </p>
+          <button className="delete-button" onClick={()=>handleDelete(comment.comment_id)}>Delete</button>
         </div>
       ))
     )}
