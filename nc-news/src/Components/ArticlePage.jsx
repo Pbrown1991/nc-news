@@ -4,6 +4,8 @@ import { fetchArticleById } from "../api/articlesbyid";
 import { fetchCommentsByArticleId } from "../api/commentsbyarticleid";
 import Comments from "./Comments";
 import { patchArticleVotes } from "../api/patchArticleVote";
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 
 function ArticlePage() {
   const { article_id } = useParams();
@@ -11,7 +13,6 @@ function ArticlePage() {
   const [showComments, setShowComments] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  console.log('article_id:', article_id)
 
   useEffect(() => {
     setError(null);
@@ -63,8 +64,8 @@ function ArticlePage() {
       <img src={article_img_url} alt="No image found" className="article-img" />
       <section className="article-body">{body}</section>
       <div className="article-votes">
-              <button onClick={() =>handleVotingClick(1)}>Upvote</button>
-              <button onClick={() => handleVotingClick(-1)}>Downvote</button>
+              <button onClick={() =>handleVotingClick(1)}><ThumbUpIcon/></button>
+              <button onClick={() => handleVotingClick(-1)}><ThumbDownIcon/></button>
               <p>{votes}</p>
           </div>
           <div className="article-comment-count">Comments: {comment_count}</div>
@@ -72,7 +73,7 @@ function ArticlePage() {
       <button className="comment-toggle" onClick={toggleCommments}>
         {showComments ? "Hide Comments" : "View Comments"}
       </button>
-      {showComments && <Comments article_id={article_id} />}
+      {showComments && <Comments article_id={article_id} currentUser={"guest"} />}
     </main>
   );
 }

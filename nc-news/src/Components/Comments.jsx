@@ -2,10 +2,11 @@ import { useState, useEffect } from "react"
 import { fetchCommentsByArticleId } from "../api/commentsbyarticleid"
 import CommentForm from "./CommentForm"
 import { deleteComment } from "../api/deleteComment"
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 
-function Comments({ article_id }) {
+function Comments({ article_id, currentUser }) {
 
     const [comments, setComments] = useState(null)
     const [loading, setLoading] = useState(true)
@@ -66,7 +67,8 @@ function Comments({ article_id }) {
           <p className="comment-created-at">
             Created At: {comment.created_at ? new Date(comment.created_at).toLocaleDateString() : 'Unknown'}
           </p>
-          <button className="delete-button" onClick={()=>handleDelete(comment.comment_id)}>Delete</button>
+          {comment.author === currentUser &&(
+          <button className="delete-button" onClick={()=>handleDelete(comment.comment_id)}><DeleteIcon/></button>)}
         </div>
       ))
     )}
