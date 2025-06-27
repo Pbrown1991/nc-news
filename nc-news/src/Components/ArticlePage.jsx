@@ -49,7 +49,7 @@ function ArticlePage() {
         })
     }
 
-  if (loading) return <p>Loading article</p>;
+  if (loading) return <p className="load-text">Loading article</p>;
 
   const { title, topic, body, author, votes, article_img_url, comment_count } =
     article;
@@ -60,7 +60,7 @@ function ArticlePage() {
     <main className="article-page">
       <h1 className="article-title">{title}</h1>
       <p className="article-info">
-        Author:{author} || Topic:{topic} || Created At:{" "}
+        Author: {author} || Topic: {topic} || Created At:{" "}
         {new Date(article.created_at).toLocaleDateString()}{" "}
       </p>
       <img src={article_img_url} alt="No image found" className="article-img" />
@@ -68,7 +68,7 @@ function ArticlePage() {
       <div className="article-votes">
               <button onClick={() =>handleVotingClick(1)}><ThumbUpIcon/></button>
               <button onClick={() => handleVotingClick(-1)}><ThumbDownIcon/></button>
-              <p>{votes}</p>
+              <p className="vote-number">{votes}</p>
           </div>
       <div className="article-comment-count">Comments: {comment_count}</div>
       

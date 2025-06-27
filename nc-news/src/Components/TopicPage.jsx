@@ -26,9 +26,9 @@ function TopicPage() {
         })
     }, [topic_slug])
     
-    if (isLoading) return <p>Loading</p>
+    if (isLoading) return <p className="load-text">Loading</p>
 
-    if (error) return <p>Error: {error.message}</p>
+    if (error) return <p className="error-text">Error: {error.message}</p>
     
     return (
     <div className="topic-page">

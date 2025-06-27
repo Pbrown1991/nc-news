@@ -258,3 +258,39 @@ a:hover {
   outline: none;
   cursor: pointer;
 }
+
+.article-info {
+  font-size: 0.95rem;
+  color: #824670;
+  background-color: #C1F7DC;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.vote-number{
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.article-comment-count{
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.load-text{
+   font-weight: bold;
+   font-size: 2.0rem;
+}
+
+.article-author-topic{
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.under-card-info{
+  font-weight: bold;
+  font-size: 0.95rem;
+}
