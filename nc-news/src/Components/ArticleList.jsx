@@ -16,6 +16,7 @@ function ArticleList() {
             })
             .catch((error) => {
                 console.error("Error fetching articles:", error)
+                setError(error);
                 setLoading(false)
         })
     }, [])

@@ -53,6 +53,8 @@ function ArticlePage() {
 
   const { title, topic, body, author, votes, article_img_url, comment_count } =
     article;
+ 
+  
 
   return (
     <main className="article-page">
@@ -68,7 +70,7 @@ function ArticlePage() {
               <button onClick={() => handleVotingClick(-1)}><ThumbDownIcon/></button>
               <p>{votes}</p>
           </div>
-          <div className="article-comment-count">Comments: {comment_count}</div>
+      <div className="article-comment-count">Comments: {comment_count}</div>
       
       <button className="comment-toggle" onClick={toggleCommments}>
         {showComments ? "Hide Comments" : "View Comments"}
