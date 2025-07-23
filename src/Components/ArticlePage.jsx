@@ -6,6 +6,7 @@ import Comments from "./Comments";
 import { patchArticleVotes } from "../api/patchArticleVote";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import SortControls from "./SortControls";
 
 function ArticlePage() {
   const { article_id } = useParams();
@@ -13,6 +14,8 @@ function ArticlePage() {
   const [showComments, setShowComments] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [voteError, setVoteError] = useState(null)
+  const [isVoting, setIsVoting] = useState(false)
 
   useEffect(() => {
     setError(null);
@@ -32,24 +35,34 @@ function ArticlePage() {
     setShowComments((prev) => !prev);
 }
     
-    function handleVotingClick(diff) {
-        setArticle((currArticle) => ({
-            ...currArticle,
-            votes:currArticle.votes+diff
-        }))
-        patchArticleVotes(article.article_id, diff)
-            .then((newArticle) => {
-            setArticle(newArticle.article)
-            })
-            .catch((err) => {
-                console.error('Vote change failed', err);
-                setArticle((currArticle)=>({
-                    ...currArticle, votes: currArticle.votes-diff
-                }))
-        })
-    }
+  function handleVotingClick(diff) {
+    setVoteError(null)
+    setIsVoting(true)
+  setArticle((currArticle) => ({
+    ...currArticle,
+    votes: currArticle.votes + diff,
+  }));
+
+  patchArticleVotes(article.article_id, diff)
+    .then((newArticle) => {
+      setArticle(newArticle.article);
+    })
+    .catch((err) => {
+      console.error("Vote change failed", err);
+      setVoteError("Failed to update vote. Please try again")
+      setArticle((currArticle) => ({
+        ...currArticle,
+        votes: currArticle.votes - diff,
+      }));
+    })
+    .finally(() => {
+      setIsVoting(false)
+      
+    })
+}
 
   if (loading) return <p className="load-text">Loading article</p>;
+  if (error) return <p className="error-text">{error}</p>
 
   const { title, topic, body, author, votes, article_img_url, comment_count } =
     article;
@@ -66,9 +79,10 @@ function ArticlePage() {
       <img src={article_img_url} alt="No image found" className="article-img" />
       <section className="article-body">{body}</section>
       <div className="article-votes">
-              <button onClick={() =>handleVotingClick(1)}><ThumbUpIcon/></button>
-              <button onClick={() => handleVotingClick(-1)}><ThumbDownIcon/></button>
-              <p className="vote-number">{votes}</p>
+              <button onClick={() =>handleVotingClick(1)} disabled={isVoting}><ThumbUpIcon/></button>
+              <button onClick={() => handleVotingClick(-1)} disabled={isVoting}><ThumbDownIcon/></button>
+        <p className="vote-number">{votes}</p>
+        {voteError && <p className="vote-error">{voteError}</p>}
           </div>
       <div className="article-comment-count">Comments: {comment_count}</div>
       

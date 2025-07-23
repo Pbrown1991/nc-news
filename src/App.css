@@ -294,3 +294,17 @@ a:hover {
   font-weight: bold;
   font-size: 0.95rem;
 }
+.vote-error {
+  color: red;
+  margin-top: 4px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.error-text {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+  font-size: x-large;
+}
